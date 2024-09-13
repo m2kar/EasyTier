@@ -1,0 +1,25 @@
+syntax = "proto3";
+package error;
+
+message InvalidMethodIndex {
+  string service_name = 1;
+  u8 method_index = 2;
+}
+
+message InvalidService { string service_name = 1; }
+
+message ProstDecodeError {}
+
+message ProstEncodeError {}
+
+message ExecuteError { string error_message = 1; }
+
+message Error {
+  oneof error {
+    InvalidMethodIndex invalid_method_index = 1;
+    InvalidService invalid_service = 2;
+    ProstDecodeError prost_decode_error = 3;
+    ProstEncodeError prost_encode_error = 4;
+    ExecuteError execute_error = 5;
+  }
+}

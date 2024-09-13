@@ -1,0 +1,26 @@
+syntax = "proto3";
+package common;
+
+import "error.proto";
+
+message RpcRequest {
+  int64 transaction_id = 1;
+
+  string proto_name = 2;
+  string service_name = 3;
+  uint32 method_index = 4;
+
+  bytes request = 5;
+  int32 timeout_ms = 6;
+  int32 trace_id = 7;
+}
+
+message RpcResponse {
+  int64 transaction_id = 1;
+
+  bytes response = 2;
+  Error error = 3;
+
+  int32 runtime_ms = 4;
+  int32 trace_id = 5;
+}

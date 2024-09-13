@@ -137,6 +137,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .compile(&["proto/cli.proto"], &["proto/"])
         .unwrap();
     // tonic_build::compile_protos("proto/cli.proto")?;
+
+    prost_build::Config::new()
+        .service_generator(Box::new(rpc_build::ServiceGenerator::new()))
+        .compile_protos(
+            &["src/proto/peer_rpc.proto", "src/proto/common.proto"],
+            &["src/proto/"],
+        )
+        .unwrap();
+
     check_locale();
     Ok(())
 }
